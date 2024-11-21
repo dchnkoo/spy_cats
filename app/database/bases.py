@@ -15,12 +15,14 @@ class PrimaryKey:
 
 class CreatedDate:
     created: _date.datetime = _sql.Field(
+        sa_type=_sql.DateTime(timezone=True),
         default_factory=db_funcs.not_utc_time
     )
 
 
 class UpdatedDate:
     updated: _t.Optional[_date.datetime] = _sql.Field(
+        sa_type=_sql.DateTime(timezone=True),
         sa_column_kwargs={"onupdate": db_funcs.not_utc_time}
     )
 

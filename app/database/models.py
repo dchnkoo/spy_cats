@@ -22,21 +22,10 @@ class SpyCatModel(metadata):
     salary: int
 
 
-class MissionModel(metadata, CompleteState):
-
-    spy_cat_id: uuid.UUID = _sql.Field(
-        sa_column=_sql.Column(
-            _sql.UUID, _sql.ForeignKey("spycat.id", ondelete="CASCADE")
-        )
-    )
-    
-
-class TargetModel(metadata, CompleteState):
+class TargetModel(metadata):
     name: str
     country: str
     notes: str
-    mission_id: uuid.UUID = _sql.Field(
-        sa_column=_sql.Column(
-            _sql.UUID, _sql.ForeignKey("mission.id", ondelete="CASCADE")
-        )
-    )
+
+    def __hash__(self):
+        return hash((self.name, self.country, self.notes))
