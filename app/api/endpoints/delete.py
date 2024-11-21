@@ -18,5 +18,4 @@ async def delete_spy_cat(id: uuid.UUID):
 async def delete_mission(id: uuid.UUID):
     instance = await Mission.load_instance(id)
     assert instance.spy_cat_id is None, "423: You cannot delete mission when it already signed to cat."
-
-    return await Mission.remove_by_id(id)
+    return await instance.remove()

@@ -19,11 +19,11 @@ async def create_spy_cat(cat: SpyCatModel):
 @app.post((create_mission_url := mission_urls.create_mission).path_with_prefix, tags=[create_mission_url.tag])
 @error_handler
 async def create_missions(targets: list[TargetModel]):
-    mission = await Mission.create_table({})
-    assert mission is not None, "400: Failed to create Mission."
-
     assert len(set(targets)) == len(targets), "400: All targets need to be unique."
 
+    mission = await Mission.create_table({})
+    assert mission is not None, "400: Failed to create Mission."
+    
     for target in targets:
         await Target.create_table((target.model_dump() | {"mission_id": mission.id}))
 

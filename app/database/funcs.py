@@ -4,7 +4,7 @@ import datetime as _date
 class DBFunc:
 
     @property
-    def not_utc_time(self):
+    def now_utc_time(self):
         return lambda: _date.datetime.now(_date.timezone.utc)
 
 
